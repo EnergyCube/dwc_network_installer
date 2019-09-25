@@ -1,1 +1,1 @@
-This repository is now depriciated. Please see [CoWFC](https://github.com/kyle95wm/CoWFC)
+This repository is now depreciated. Please see [CoWFC](https://github.com/EnergyCube/CoWFC)

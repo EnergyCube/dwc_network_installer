@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "WARNING! WARNING! WARNING!"
 echo "While this script may continue to work, I have deemed it DEPRECIATED."
-echo "If you wish to continue to receive support for a DWC installer, please see: https://github.com/kyle95wm/CoWFC"
+echo "If you wish to continue to receive support for a DWC installer, please see: https://github.com/EnergyCube/CoWFC"
 read -rp "If you understand the risks of using this script, please press the ENTER key. Otherwise please press ctrl+c to exit."
 # DWC Network Installer script by kyle95wm/beanjr
 # NOTE TO DEVELOPERS: please remember to edit the test build section of this script if you have made any changes.
@@ -38,7 +38,7 @@ vh12="sake.gs.wiimmfi.de.conf"
 mod1="proxy" # This is a proxy mod that is dependent on the other 2
 mod2="proxy_http" # This is related to mod1
 fqdn="localhost" # This variable fixes the fqdn error in Apache
-UPDATE_URL="https://raw.githubusercontent.com/kyle95wm/dwc_network_installer/master/install.sh"
+UPDATE_URL="https://raw.githubusercontent.com/EnergyCube/dwc_network_installer/master/install.sh"
 UPDATE_FILE="$0.tmp"
 ver="3.0" # This lets the user know what version of the script they are running
 # Script Functions
@@ -243,9 +243,10 @@ if [ $1 == "--clone-alt" ] ; then
     echo "Cloning $giturl"
     git clone $giturl
 else
-    echo "Cloning the official repo....."
+    echo "Cloning the EnergyCube repo....."
     #git clone http://github.com/polaris-/dwc_network_server_emulator
-    git clone https://github.com/barronwaffles/dwc_network_server_emulator.git
+    #git clone https://github.com/barronwaffles/dwc_network_server_emulator.git
+    git clone https://github.com/EnergyCube/dwc_network_server_emulator.git
 fi
 clear
 echo "Now that that's out of the way, let's do some apache stuff"
@@ -302,11 +303,16 @@ sleep 5s
 clear
 echo "----------Lets configure DNSMASQ now----------"
 sleep 3s
-echo "Adding Google DNS (8.8.8.8) to config"
-cat >>/etc/dnsmasq.conf <<EOF
-server=8.8.8.8
-EOF
-sleep 2s
+# Decided to take this step out, as doing so will create what's known as an open resolver.
+# Having an open resolver is a security risk and is not a good idea.
+# This means that DNS will be restricted to ONLY looking up Nintendo domains.
+#echo "Adding Google DNS (8.8.8.8) to config"
+# We add Google's DNS server to our server so that anyone with our DNS server can still resolve hostnames to IP
+# addresses outside our DNS server. Useful for Dolphin testing
+#cat >>/etc/dnsmasq.conf <<EOF
+#server=8.8.8.8
+#EOF
+#sleep 2s
 echo "What is your EXTERNAL IP?"
 echo "NOTE: If you plan on using this on a LAN, put the IP of your Linux system instead"
 echo "It's also best practice to make this address static in your /etc/network/interfaces file"
